@@ -1,0 +1,125 @@
+<style>
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: radial-gradient(circle at center, #2c2c2c 0%, #000 100%);
+    }
+
+    .container {
+        display: flex;
+        gap: 100px;
+    }
+
+    /* Estrutura de Vidro */
+    .copo {
+        position: relative;
+        width: 120px;
+        height: 190px;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        /* Sombras internas para profundidade lateral */
+        box-shadow: 
+            inset 0 -10px 15px rgba(255, 255, 255, 0.05),
+            inset 10px 0 10px rgba(255, 255, 255, 0.05),
+            inset -10px 0 10px rgba(255, 255, 255, 0.05),
+            0 20px 40px rgba(0, 0, 0, 0.7);
+        border: none;
+        z-index: 1;
+    }
+
+    /* O Aro Superior (Ajustado para sumir com a linha do meio) */
+    .copo::before {
+        content: "";
+        position: absolute;
+        top: -17px; /* Subi levemente para encaixar melhor */
+        left: 0;
+        width: 120px;
+        height: 35px;
+        /* Gradiente limpo nas bordas */
+        background: radial-gradient(ellipse at center, 
+            rgba(255, 255, 255, 0) 45%, 
+            rgba(255, 255, 255, 0.02) 55%, 
+            rgba(255, 255, 255, 0.2) 100%);
+        /* A borda agora é sutil e sem divisões internas */
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        box-sizing: border-box;
+        z-index: 10; /* Garante que fique acima de qualquer outra linha */
+    }
+
+    /* Base do Copo */
+    .copo::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(255,255,255,0.1));
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
+
+    /* Líquido */
+    .liquido {
+        position: absolute;
+        bottom: 8px; 
+        left: 5px;
+        right: 5px;
+        width: calc(100% - 10px);
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        opacity: 0.85;
+    }
+
+    /* Superfície do Líquido */
+    .liquido::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+        width: 100%;
+        height: 20px;
+        border-radius: 50%;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .laranja {
+        background: linear-gradient(to top, #e67e22, #f39c12);
+        box-shadow: 0 0 25px rgba(230, 126, 34, 0.15);
+    }
+    .laranja::after { background: #f1a94e; }
+
+    .azul {
+        background: linear-gradient(to top, #1a5276, #2980b9);
+        box-shadow: 0 0 25px rgba(41, 128, 185, 0.15);
+    }
+    .azul::after { background: #5499c7; }
+
+    /* Animações */
+    .copo1 .liquido { animation: fluirLaranja 6s ease-in-out infinite; }
+    .copo2 .liquido { animation: fluirAzul 6s ease-in-out infinite; }
+
+    @keyframes fluirLaranja {
+        0%, 100% { height: 18%; }
+        33.3% { height: 82%; }
+    }
+
+    @keyframes fluirAzul {
+        0%, 100% { height: 82%; }
+        33.3% { height: 18%; }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="copo copo1">
+            <div class="liquido laranja"></div>
+        </div>
+        <div class="copo copo2">
+            <div class="liquido azul"></div>
+        </div>
+    </div>
+</body>
